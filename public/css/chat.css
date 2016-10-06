@@ -1,0 +1,116 @@
+body{
+	font:14px "Lucida Grande",Helvetica, Arial, sans-serif;
+	margin-top:0px;
+}
+a{
+	color: #00B7FF;
+}
+#content{
+	width: 	1152px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#room{
+	position:absolute;
+	background-color:#ddd;
+	margin-bottom: 1em;
+}
+#room_display{
+	position:absolute;
+	width: 	1152px;
+	height:768px;
+	overflow:hidden;
+	background-color:#DEDEDE;
+}
+#game_holder{
+	width:960px;
+	height:575px;
+	overflow:auto;
+	background-color:#eee;
+	position:absolute;
+}
+#chatroom{
+	position:absolute;
+	width:700px;
+	height:130px;
+	top:600px;
+	left:40px;
+	overflow:auto;
+}
+#message_holder{
+	position:absolute;
+	top:574px;
+	width:960px;
+	height:16px;
+	overflow:hidden;
+}
+#message_toggle{
+	position:absolute;
+	width:16px;
+	height:16px;
+	left:944px;
+	background-color:#aaaaaa;
+}
+#messages{
+	position:absolute;
+	width:960px;
+	height:200px;
+	overflow:auto;
+	background-color:#ddd;
+}
+#send_message {
+	width: 700px;
+	margin-bottom: 1em;
+	margin-right: 1em;
+}
+#send_form {
+	position:absolute;
+	top:735px;
+	left:40px;
+}
+#room_list {
+	position:absolute;
+	width: 290px;
+	height: 300px;
+	left:960px;
+	overflow: auto;
+}
+#room_list div {
+	border-bottom: 1px solid #FFF;
+}
+#room_list div:hover {
+	background-color: #7A7A7A;
+}
+#room_list div.active {
+	background-color: #B8B8B8;
+}
+#game_list{
+	position:absolute;
+	width:192px;
+	height:300px;
+	left:960px;
+	top:270px;
+}
+#game_list div{
+	border-bottom: 1px solid #FFF;
+}
+#game_list div:hover {
+	background-color: #7A7A7A;
+}
+#game_list div.active {
+	background-color:red;
+}
+#game_list div.waiting {
+	background-color:green;
+}
+#game_buttons{
+	position: absolute;
+	top:570px;
+	height:20px;
+	width:300px;
+	left:960px;
+	background-color:blue;
+}
+#help {
+	font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
+}

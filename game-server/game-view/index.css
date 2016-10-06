@@ -1,0 +1,15 @@
+.game-window{
+	width:100%;
+	height:100%;
+}
+#wrapper {
+    width: 1152px;
+    height: 864px;
+    -webkit-transform-origin: top left;
+    background-color: white;
+    position:relative;
+}
+#game-view {
+    width: 100%;
+    height: 100%;
+}

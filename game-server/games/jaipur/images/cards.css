@@ -1,0 +1,53 @@
+.cards {
+    background-image: url(cards.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.back_card {
+    width: 122px;
+    height: 172px;
+    background-position: -5px -5px;
+}
+
+.camel_card {
+    width: 122px;
+    height: 172px;
+    background-position: -137px -5px;
+}
+
+.diamond_card {
+    width: 123px;
+    height: 173px;
+    background-position: -269px -5px;
+}
+
+.gold_card {
+    width: 123px;
+    height: 173px;
+    background-position: -5px -188px;
+}
+
+.leather_card {
+    width: 123px;
+    height: 173px;
+    background-position: -138px -188px;
+}
+
+.silk_card {
+    width: 123px;
+    height: 173px;
+    background-position: -271px -188px;
+}
+
+.silver_card {
+    width: 123px;
+    height: 173px;
+    background-position: -402px -5px;
+}
+
+.spice_card {
+    width: 123px;
+    height: 173px;
+    background-position: -404px -188px;
+}

@@ -1,0 +1,151 @@
+.playerText {
+	position:absolute;
+	width:90px;
+	height:20px;
+	left:10px;
+	top:530px;
+}
+.enemyText {
+	position:absolute;
+	top:5px;
+	width:90px;
+	height:20px;
+	left:10px;
+}
+.marketHolder{
+	position:absolute;
+	width:600px;
+	height:110px;
+	left:150px;
+	top:225px;
+}
+.tokenHolder{
+	position:absolute;
+	top:45px;
+	width:120px;
+	height:435px;
+}
+.deckPile{
+	position:absolute;
+	top:15px;
+	left:835px;
+	width:100px;
+	height:100px;
+}
+.discardPile{
+	position:absolute;
+	top:140px;
+	left:835px;
+	width:100px;
+	height:100px;
+}
+.playerTokenHolder{
+	position:absolute;
+	top:410px;
+	left:775px;
+	width:75px;
+	height:150px;
+}
+.enemyTokenHolder{
+	position:absolute;
+	top:410px;
+	left:870px;
+	width:75px;
+	height:150px;
+}
+.playerHand{
+	position:absolute;
+	left:150px;
+	top:445px;
+	width:600px;
+	height:110px;
+}
+.playerCamels{
+	position:absolute;
+	left:150px;
+	top:340px;
+	width:600px;
+	height:80px;
+}
+.enemyHand{
+	position:absolute;
+	left:150px;
+	top:15px;
+	width:600px;
+	height:110px;
+}
+.enemyCamels{
+	position:absolute;
+	left:150px;
+	top:130px;
+	width:600px;
+	height:80px;
+}
+.takeBtn{
+	position:absolute;
+	background-color:#0099CC;
+	top:285px;
+	left:835px;
+	width:100px;
+	height:30px;
+}
+.tradeBtn{
+	position:absolute;
+	background-color:#663300;
+	top:325px;
+	left:835px;
+	width:100px;
+	height:30px;
+}
+.sellBtn{
+	position:absolute;
+	background-color:#FF99CC;
+	top:365px;
+	left:835px;
+	width:100px;
+	height:30px;
+}
+
+.card{
+	position:absolute;
+	width:80px;
+	height:100px;
+}
+.token{
+	position:absolute;
+	width:75px;
+	height:75px;
+}
+.leatherToken{
+	position:absolute;
+}
+.spiceToken{
+	position:absolute;
+}
+.silkToken{
+	position:absolute;
+}
+.silverToken{
+	position:absolute;
+}
+.goldToken{
+	position:absolute;
+}
+.diamondToken{
+	position:absolute;
+}
+.camelToken{
+	position:absolute;
+}
+.bonusToken3{
+	position:absolute;
+}
+.bonusToken4{
+	position:absolute;
+}
+.bonusToken5{
+	position:absolute;
+}
+.victoryToken{
+	position:absolute;
+}

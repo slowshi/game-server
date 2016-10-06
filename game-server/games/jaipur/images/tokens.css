@@ -1,0 +1,65 @@
+.token {
+    background-image: url(tokens.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.camel_token {
+    width: 77px;
+    height: 77px;
+    background-position: -5px -5px;
+}
+
+.combo_3_token {
+    width: 77px;
+    height: 77px;
+    background-position: -92px -5px;
+}
+
+.combo_4_token {
+    width: 77px;
+    height: 77px;
+    background-position: -179px -5px;
+}
+
+.combo_5_token {
+    width: 77px;
+    height: 77px;
+    background-position: -5px -92px;
+}
+
+.diamond_token {
+    width: 77px;
+    height: 77px;
+    background-position: -92px -92px;
+}
+
+.gold_token {
+    width: 77px;
+    height: 77px;
+    background-position: -179px -92px;
+}
+
+.leather_token {
+    width: 77px;
+    height: 77px;
+    background-position: -5px -179px;
+}
+
+.silk_token {
+    width: 77px;
+    height: 77px;
+    background-position: -92px -179px;
+}
+
+.silver_token {
+    width: 77px;
+    height: 77px;
+    background-position: -179px -179px;
+}
+
+.spice_token {
+    width: 77px;
+    height: 77px;
+    background-position: -266px -5px;
+}

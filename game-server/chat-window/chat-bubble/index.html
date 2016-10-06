@@ -1,0 +1,21 @@
+<div>
+	<ol id="discussion" class="discussion">
+		<li ng-repeat="chatdata in ctrl.ChatWindowService.chatLog track by $index" ng-class="{'other': !ctrl.GameUser.checkValidSockets(chatdata.socketid), 'self': ctrl.GameUser.checkValidSockets(chatdata.socketid)}">
+			<div class="avatar">
+		    	<div class="champs {{chatdata.avatar}}"></div>
+		  	</div>
+		  	<div class="messages">
+				<p><a ng-if="chatdata.type == 'url'" target="_blank" ng-href="{{chatdata.text}}">{{chatdata.text}}</a></p>
+		        <p ng-if="chatdata.type == ''">{{chatdata.text}}</p>
+		        <p ng-if="chatdata.type == 'video'">
+		            <iframe width="200" height="112" ng-src="{{chatdata.text}}" frameborder="0" allowfullscreen></iframe>
+		        </p>
+			    <p ng-if="chatdata.type == 'image'" ><img style="max-width:200px" ng-src="{{chatdata.text}}"></p>
+			    <time>{{chatdata.name}} • {{chatdata.time | date: "h:mma"}}</time>
+		  	</div>
+		</li>
+	</ol>
+	<form>
+	    <input ng-model="ctrl.message" class='chat-input'/>
+	</form>
+</div>

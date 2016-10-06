@@ -1,0 +1,15 @@
+.game-lobby{
+	width:1152px;
+	height:864px;
+	background-color:orange;
+}
+.current-games{
+	float:left;
+	width:50%;
+	height:100%;
+}
+.new-games{
+	float:left;
+	width:50%;
+	height:100%;
+}

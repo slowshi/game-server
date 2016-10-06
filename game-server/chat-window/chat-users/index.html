@@ -1,0 +1,11 @@
+<div>
+	<div class="chat-users">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="user in ctrl.ChatWindowService.chatRooms['Lobby']">
+				<div class="chat-user-avatar champs {{user.avatar}}"></div>
+				<div class="chat-user-text">{{user.name}}</div>
+			</li>
+		</ul>
+	</div>
+	<div class="chat-users-submit"></div>
+</div>

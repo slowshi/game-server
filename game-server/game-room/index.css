@@ -1,0 +1,15 @@
+.game-room{
+	width:1152px;
+	height:864px;
+	background-color:green;
+}
+.game-room-user-avatar{
+	display:inline-block;
+}
+.game-room-user-text{
+	display:inline-block;
+	width:80%;
+	text-align: center;
+	vertical-align: top;
+	margin-top: 13px;
+}

@@ -1,0 +1,14 @@
+<div class="module">
+    <div class="top-bar" ng-click="ctrl.chatOpen = !ctrl.chatOpen">
+        <h4 class="pull-left title">Lobby</h4>
+        <div class="pull-right">
+            <span class="icon typicons-minus" ng-click="ctrl.chatOpen = !ctrl.chatOpen"></span>
+            <span class="icon typicons-times"></span>
+        </div>
+    </div>
+    <div ng-show="ctrl.chatOpen" class="chat-options">
+        <div class="chat-users-icon glyphicon glyphicon-user" ng-model="ctrl.showList" ng-click="ctrl.showList = !ctrl.showList"></div>
+    </div>
+    <chat-bubble ng-show="ctrl.chatOpen && !ctrl.showList"></chat-bubble>
+    <chat-users ng-show="ctrl.chatOpen && ctrl.showList"></chat-users>
+</div>

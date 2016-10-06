@@ -1,0 +1,12 @@
+<div class="game-lobby">
+	<div class="current-games">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="(gameid,gameRoom) in ctrl.GameRoomService.gameRooms">{{ctrl.GameRoomService.getGameInfo(gameRoom.game).game_name}}{{ctrl.GameRoomService.getGameRoomOccupants(gameid)}}
+				<button class="btn btn-default" ng-show="ctrl.GameRoomService.checkValidRoom(gameid)" ng-click="ctrl.joinGame(gameid);">Join Game</button>
+			</li>
+		</ul>
+	</div>
+	<div class="new-games">
+		<button class="btn btn-default" ng-click="ctrl.createGame();">Create Game</button>
+	</div>
+</div>

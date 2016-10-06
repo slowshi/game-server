@@ -1,0 +1,11 @@
+<div class="jaipur">
+	<div>
+		<div ng-repeat="card in ctrl.JaipurService.opponentHand" ng-class="ctrl.getClass(card)"></div>
+	</div>
+	<div>
+		<div ng-repeat="card in ctrl.JaipurService.market" ng-class="ctrl.getClass(card)"></div>
+	</div>
+	<div>
+		<div ng-repeat="card in ctrl.JaipurService.playerHand" ng-class="ctrl.getClass(card)"></div>
+	</div>
+</div>

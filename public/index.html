@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<title>Chat</title>
+	<link rel='stylesheet' href='./css/chat.css'></link>
+	<link rel='stylesheet' href='./css/jaipur.css'></link>
+</head>
+
+<body>
+	<div id='content'>
+		<div id='room'></div>
+		<div id='room_display'>
+			<div id='room_list'></div>
+			<div id="game_list"></div>
+			<div id='game_buttons'>
+				<input style='margin-left:10px;'type='button' value='Create Game'onclick='startRoomGame()'/>
+				<input type='button' value='Join Game'onclick='joinRoomGame()'/>
+			</div>
+			<div id="game_holder"></div>
+			<div id='message_holder'>
+				<div id='messages'></div>
+				<div id='message_toggle' onclick='toggleMessage()'> X</div>		
+			</div>
+			<div id="chatroom"></div>
+			<form id='send_form'>
+				<input id='send_message'/>
+				<input id='send_button' type='submit' value='Send'/>
+				<div id='help'>
+					Chat Commands:
+					<ul>
+						<li>Change nickname: <code>/nick [username]</code></li>
+						<li>Join/Create room: <code>/join [room name]</code></li>
+					</ul>
+				</div>
+			</form>
+		</div>
+	</div>
+
+<script src='/socket.io/socket.io.js' type='text/javascript'></script>
+<script src='http://code.jquery.com/jquery-1.8.0.min.js' type='text/javascript'></script>
+<script src='./js/chat.js' type='text/javascript'></script>
+<script src='./js/dice_roll.js' type='text/javascript'></script>
+<script src='./js/chat_ui.js' type='text/javascript'></script>
+<script src='./js/jaipur.js' type='text/javascript'></script>
+
+</body>
+</html>

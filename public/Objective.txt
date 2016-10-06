@@ -1,0 +1,73 @@
+Objective
+Two players look to trade and sell their goods to become the richest trader.
+
+Goods
+Diamond 6x
+Gold 6x
+Silver 6x
+
+Silk 8x
+Spice 8x
+Leather 10x
+Camel 11x
+
+Tokens
+Goods
+Diamond		7 7 5 5 5 
+Gold  		6 6 5 5 5 
+Silver 		5 5 5 5 5 
+
+Silk 		5 3 3 2 2 1 1
+Spice 		5 3 3 2 2 1 1
+Leather 	4 3 2 1 1 1 1 1 1
+
+Bonuses
+3 cards 7x 	3 3 2 2 2 1 1
+4 cards 6x 	6 6 5 5 4
+5 cards 5x 	10 10 9 9 8
+Camel 5
+
+Round Ends
+Only 3 goods left or No draw Cards
+
+Round winner
+Person who gets the most gold that rounds gets a token
+
+Game winner
+Person to get to two tokens
+
+Setup
+1. Center of table has 3 Camels
+2. Each player gets 5 cards face down. Camels get put directly onto the table.
+3. Two cards places face up from top of deck.
+
+On Player Turn
+Take Cards
+Take ONE good from table and replace it from one in the top of the deck
+Take MORE than one good from the table you MUST trade the exact number from your hand/herd
+Take ALL of the camels from the center and put them in your herd then replace the cards with cards from the deck.
+
+Sell Cards
+Sell as many cards of one good as you would like. You gain one token for every card you gain.
+Selling 3x 4x or 5x cards of one good gains a bonus token
+You must sell at least 2 goods if they are expensive goods
+
+Classes
+	Player - 
+					Name
+					ID
+					Turn
+					Ready
+
+					Actions
+					Choose Card
+
+	Game Table - 	Holds Deck
+				 
+					Displays Events
+					Show startup
+					Pick Camels
+					Pick Card
+					Replace Cards
+
+Token - 

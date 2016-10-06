@@ -1,0 +1,23 @@
+.chat-users{
+	height:280px;
+	overflow-y:scroll;
+  	max-height:280px;
+  	min-height:50px;
+	width:100%;
+	background-color:#FFF;
+}
+.chat-users-submit{
+	width:100%;
+	height:26px;
+	background-color:#FFF;
+}
+.chat-user-avatar{
+	display:inline-block;
+}
+.chat-user-text{
+	display:inline-block;
+	width:80%;
+	text-align: center;
+	vertical-align: top;
+	margin-top: 13px;
+}
