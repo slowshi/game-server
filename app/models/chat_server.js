@@ -195,7 +195,7 @@
 	function handleClientDissconnection(socket){
 		socket.on('disconnect',function(){
 			var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
-			
+
 			for(var i in currentGames){
 				var game = currentGames[i];
 				var list = gameList[i];
