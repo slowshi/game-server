@@ -4,9 +4,9 @@ module.exports = {
 		max_players:2,
 		min_players:2,
 	},
-	'onimata':{
-		game_name:'Onimata',
-		max_players:2,
-		min_players:2
+	'onitama':{
+		game_name:'Onitama',
+		max_players:1,
+		min_players:1
 	}
 };

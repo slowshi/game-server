@@ -1,9 +1,10 @@
 require.config({
     paths: {
-        'angular'              : 'angular.min',
-        'angular-ui-router'    : 'angular-ui-router.min',
-        'angular-couch-potato' : 'angular-couch-potato',
-        'angular-css-injector' : 'angular-css-injector.min',
+        'angular'              : 'angular/angular.min',
+        'angular-ui-router'    : 'angular/angular-ui-router.min',
+        'angular-couch-potato' : 'angular/angular-couch-potato',
+        'angular-css-injector' : 'angular/angular-css-injector.min',
+        'redux'                : 'redux/redux.min',
         'states'               : 'states',
         'app'                  : 'app',
         'app-init'             : 'app-init',

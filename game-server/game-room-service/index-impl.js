@@ -33,7 +33,7 @@ define([],function(){
 			createGame:function(){
 				var gameInfo = {
 					socketid: this.user.socketid,
-					game:'jaipur'
+					game:'onitama'
 				};
 				this.user.socket.emit('GameServer:MakeGameRoom',gameInfo);
 				this.emitter.trigger('GameView:ChangeState','gameroom');

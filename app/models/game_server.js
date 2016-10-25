@@ -39,8 +39,9 @@ module.exports = {
 		var user = this.gameUsers.getUserInfo(data.socketid);
 		room.players[data.socketid] = user;
 		this.io.sockets.emit('GameServer:UpdateGameRooms',this.gameRooms);
-	},	
+	},
 	onStartGame:function(gameid){
+		console.log("START",gameid);
 		var room = this.gameRooms[gameid];
 		var socketids = Object.keys(room.players);
 		var sockets = socketids.map(function(socketid){
@@ -73,7 +74,7 @@ module.exports = {
 			if(Object.keys(room.players).length == 0){
 				delete module.exports.gameRooms[room.gameid];
 			}
-			module.exports.io.sockets.emit('GameServer:UpdateGameRooms',module.exports.gameRooms);		
+			module.exports.io.sockets.emit('GameServer:UpdateGameRooms',module.exports.gameRooms);
 		}
 		console.log("DISCONNECTIONS",this.id);
 	},

@@ -1,7 +1,7 @@
 var Deck = new require('../components/card_deck.js');
-var Cards = new require('./jaipur_cards.js');
-var Tokens = new require('./jaipur_tokens.js');
-function Jaipur(sockets){
+var Cards = new require('./cards.js');
+var Tokens = new require('./tokens.js');
+function Onitama(sockets){
 	this.sockets = sockets;
 	this.players = [];
 	this.usersReady = 0;
@@ -12,7 +12,7 @@ function Jaipur(sockets){
 	this.tokens = new Deck(new Tokens());
 	return this;
 }
-Jaipur.prototype = {
+Onitama.prototype = {
 	registerUsers:function(){
 		var getSocketIds = function(socket){
 			return socket.id;
@@ -20,7 +20,7 @@ Jaipur.prototype = {
 		this.players = this.sockets.map(getSocketIds);
 		var concatUsers = this.users.concat(this.players);
 		this.users = concatUsers;
-		this.socketsOn('Jaipur:PlayerReady',this.checkPlayersReady.bind(this));
+		this.socketsOn('Onitama:PlayerReady',this.checkPlayersReady.bind(this));
 	},
 	checkPlayersReady:function(){
 		this.usersReady++;
@@ -40,7 +40,7 @@ Jaipur.prototype = {
 		}
 		this.deck.dealCards(2,['market']);
 		this.deck.dealCards(6,this.players);
-		this.socketsEmit('Jaipur:UpdateGameInfo',this.gameInfo());
+		this.socketsEmit('Onitama:UpdateGameInfo',this.gameInfo());
 	},
 	getSocketById:function(id){
 		var socketById = function(socket){
@@ -56,7 +56,7 @@ Jaipur.prototype = {
 			var socket = this.sockets[i];
 			socket.emit(event,info);
 		}
-	},	
+	},
 	socketsOn:function(event,callback){
 		for(var i in this.sockets){
 			var socket = this.sockets[i];
@@ -75,4 +75,4 @@ Jaipur.prototype = {
 	}
 };
 
-module.exports = Jaipur;
+module.exports = Onitama;
