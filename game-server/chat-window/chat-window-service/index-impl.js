@@ -1,12 +1,33 @@
-define([],function(){
-	var ChatWindowService = function(EventEmitter, GameUser){
+define(['redux'],function(Redux) {
+	console.log(redux);
+	function counter(state, action) {
+		if (typeof state === 'undefined') {
+			return{
+				chatLog:[],
+				chatList:[],
+				chatRooms:[]
+			};
+		}
+
+		switch (action.type) {
+			case 'RecieveMessage':
+				return state + 1;
+			case 'UpdateUserList':
+				return state - 1;
+			case 'UpdateChatlog':
+			break;
+		}
+	}
+	var chatStore = Redux.createStore(counter);
+	var ChatWindowService = function(EventEmitter, GameUser) {
 		return {
 			emitter:EventEmitter,
 			user:GameUser,
+			chatStore:chatStore,
 			chatLog:[],
 			chatList:[],
 			chatRooms:[],
-			registerUser:function(){
+			registerUser:function() {
 				var socketid = this.user.socket.socket.sessionid;
 				this.emitter.subscribe('GameUser:Disconnected',this.onDisconnect.bind(this));
 			 	this.user.socket.on('ChatServer:RecieveMessage',this.recieveMessage.bind(this));
@@ -15,44 +36,45 @@ define([],function(){
 			 		room: 'Lobby',
 			 		socketid: socketid
 			 	};
-			 	this.user.socket.emit('ChatServer:JoinRoom',joinQuery);				
+			 	this.user.socket.emit('ChatServer:JoinRoom',joinQuery);
 			},
-			onDisconnect:function(user){
+			onDisconnect:function(user) {
 				this.user.socket.removeAllListeners('ChatServer:RecieveMessage');
 				this.user.socket.removeAllListeners('ChatServer:UpdateUserList');
 			},
-			updateChatLog:function(message){
+			updateChatLog:function(message) {
 				this.chatLog.push(message);
-			},		
-			onCheckImage: function(message,res){
-				if(res == 'success'){
+			},
+			onCheckImage: function(message,res) {
+				if(res == 'success') {
 					message.type = 'image';
 				}
 				this.emitter.trigger('apply');
 			},
-			recieveMessage: function(message){
+			recieveMessage: function(message) {
+				console.log('reciewv');
 				this.updateChatLog(message);
-				if(message.type == 'url'){
+				if(message.type == 'url') {
 					this.checkImage(message,this.onCheckImage.bind(this));
 				}
 				this.emitter.trigger('apply');
 			},
-			updateUserList:function(data){
+			updateUserList:function(data) {
 				var room = data.room;
 				var userList = data.users;
 				this.chatRooms[room] = data.users;
 				this.emitter.trigger('apply');
 			},
-			sendMessage:function(text){
-				if(text == '')return;
-				if(text.substring(0,2) == '!~'){
+			sendMessage:function(text) {
+				if(text === '')return;
+				if(text.substring(0,2) == '!~') {
 					var champStr = text.substr(2);
 					this.user.getChampion(champStr);
 				}
 				var type = '';
-				if(this.validURL(text)){
+				if(this.validURL(text)) {
 					type = 'url';
-					if(this.checkYouTube(text)){
+					if(this.checkYouTube(text)) {
 						type = 'video';
 						text = 'https://www.youtube.com/embed/' + this.checkYouTube(text);
 					}else{
@@ -69,7 +91,7 @@ define([],function(){
 				var check = this.user.checkValidSockets(this.user.socketid);
 				this.user.socket.emit('ChatServer:SendMessage',obj);
 			},
-			getTimeSince:function(time){
+			getTimeSince:function(time) {
 
 			},
 			validURL:function(str) {
@@ -81,18 +103,18 @@ define([],function(){
 					return true;
 				}
 			},
-			addHttp:function(text){
+			addHttp:function(text) {
 				var result;
 			    var startingUrl = "http://";
-			    var httpsStartingUrl = "https://"; 
-			    if(text.indexOf(startingUrl) === 0 || text.indexOf(httpsStartingUrl) === 0){
+			    var httpsStartingUrl = "https://";
+			    if(text.indexOf(startingUrl) === 0 || text.indexOf(httpsStartingUrl) === 0) {
 			        result = text;
 			    }else{
 			    	result = startingUrl + text;
 			    }
 			    return result;
 			},
-			checkYouTube:function(url){
+			checkYouTube:function(url) {
 				var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 				var match = url.match(regExp);
 				if (match && match[2].length == 11) {
@@ -122,7 +144,7 @@ define([],function(){
 			    timer = setTimeout(function() {
 			        timedOut = true;
 			        callback(message, "timeout");
-			    }, timeout); 
+			    }, timeout);
 			}
 		};
 	};

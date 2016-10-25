@@ -1,5 +1,5 @@
-define(['app'],function(app){
-	app.registerDirective('gameWindow',function(){
+define(['app'],function(app) {
+	app.registerDirective('gameWindow',function() {
 		return{
 			restrict:'E',
 			transclude: true,
@@ -11,12 +11,12 @@ define(['app'],function(app){
 			controller: 'GamesController',
 			controllerAs: 'ctrl',
 			bindToController: true,
-			link: function(scope, elem, attrs){
+			link: function(scope, elem, attrs) {
 				console.log('in here directive');
 			}
 		};
 	});
-	app.registerController('GamesController',['$scope','cssInjector',function($scope,cssInjector){
+	app.registerController('GamesController',['$scope','cssInjector',function($scope,cssInjector) {
 		cssInjector.add('/game-server/games/index.css');
 	}])
 });

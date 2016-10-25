@@ -1,5 +1,5 @@
 module.exports = {
-	initialize:function(serverUrl){
+	initialize:function(serverUrl) {
 		var http = require('http');
 		var server = http.createServer(require('./routes.js').init);
 		server.listen(3030,serverUrl);
@@ -11,7 +11,7 @@ module.exports = {
 		var chatServer = require('./models/chat_server.js');
 		var gameServer = require('./models/game_server.js');
 		var gameUsers = require('./models/game_users.js');
-		function onConnection(socket){
+		function onConnection(socket) {
 			chatServer.registerIo(io, socket);
 			gameServer.registerIo(io, socket);
 			gameUsers.registerIo(io, socket);

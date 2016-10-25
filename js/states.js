@@ -1,4 +1,4 @@
-define([],function(){
+define([],function() {
 	var states = {
 		'lobby':{
 			path:'game-server/game-lobby',

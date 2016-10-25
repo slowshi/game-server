@@ -1,3 +1,7 @@
-define(['app','./index-impl.js'],function(app,ChatWindowServiceImpl){
-	app.registerService('ChatWindowService',['EventEmitter','GameUser',ChatWindowServiceImpl]);
+define([
+	'app',
+	'./index-impl.js'],
+function(app,ChatWindowServiceImpl) {
+	app.registerService('ChatWindowService',
+	['EventEmitter','GameUser',ChatWindowServiceImpl]);
 });

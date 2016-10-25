@@ -24,6 +24,6 @@ require.config({
     }
 });
 
-require(['app-init'],function(appInit){
+require(['app-init'],function(appInit) {
     appInit();
 });

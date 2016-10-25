@@ -1,4 +1,4 @@
-var Jaipur = function(players){
+var Jaipur = function(players) {
 	this.players = players;
 	this.cards = {
 		'diamond':6,
@@ -27,7 +27,7 @@ var Jaipur = function(players){
 	this.dispatchToPlayers('GameServer:GameLoaded',this.getInfo(true));
 }
 
-Jaipur.prototype.gameInit = function(){
+Jaipur.prototype.gameInit = function() {
 	/*
 		var obj = {
 			cardid: cardid,
@@ -38,17 +38,17 @@ Jaipur.prototype.gameInit = function(){
 		
 	*/
 	var cardid = 1;
-	for(var index in this.cards){
+	for(var index in this.cards) {
 		var count = this.cards[index];
 		var i = 0;
-		while(i < count){
+		while(i < count) {
 			var obj = {
 				cardid: cardid,
 				type:index,
 				holder:'deck',
 				selected:false
 			}
-			if(index == 'camel' && i < 3){
+			if(index == 'camel' && i < 3) {
 				obj.holder = 'market';
 			}
 			this.allCards.push(obj);
@@ -65,10 +65,10 @@ Jaipur.prototype.gameInit = function(){
 		}
 	*/
 	var tokenid = 1;
-	for(var index in this.tokens){
+	for(var index in this.tokens) {
 		var tokensType = this.tokens[index];
 		var i = 0;
-		for(var toks in tokensType){
+		for(var toks in tokensType) {
 			var obj = {
 				tokenid:tokenid,
 				type:index,
@@ -86,8 +86,8 @@ Jaipur.prototype.gameInit = function(){
 	//deal cards
 	var i = 0;
 	var bool = false;
-	while(i < 10){
-		if(bool){
+	while(i < 10) {
+		if(bool) {
 			var randCard = this.drawCard(1,'player1');
 		}else{
 			var randCard = this.drawCard(1,'player2');
@@ -100,16 +100,16 @@ Jaipur.prototype.gameInit = function(){
 	this.players[1].emit('gameStartup',this.getInfo(false));
 }
 
-Jaipur.prototype.events = function(){
-	for(var i in this.players){
+Jaipur.prototype.events = function() {
+	for(var i in this.players) {
 		this.players[i].on('takeGood',this.takeGood.bind(this));		
 		this.players[i].on('tradeGoods',this.tradeCards.bind(this));
 		this.players[i].on('sellGoods',this.sellCards.bind(this));
 	}
 }
 
-Jaipur.prototype.takeGood = function(info){
-	for(var i in info.cardids){
+Jaipur.prototype.takeGood = function(info) {
+	for(var i in info.cardids) {
 		this.giveCards(info.cardids[i], info.playerid);
 	}
 	var cards = this.drawCard(info.cardids.length);
@@ -118,12 +118,12 @@ Jaipur.prototype.takeGood = function(info){
 		this.endRound();
 }
 
-Jaipur.prototype.tradeCards = function(info){
+Jaipur.prototype.tradeCards = function(info) {
 // camels or one card and draw a card
-	for(var i in info.givePlayer){
+	for(var i in info.givePlayer) {
 		this.giveCards(info.givePlayer[i], info.playerid);
 	}	
-	for(var i in info.giveMarket){
+	for(var i in info.giveMarket) {
 		this.giveCards(info.giveMarket[i], 'market');
 	}
 	var enemyCards = this.getCardIdsByHolder(info.playerid);
@@ -131,10 +131,10 @@ Jaipur.prototype.tradeCards = function(info){
 	this.dispatchToPlayers('updateMarket',{enemyCards:enemyCards, playerid:info.playerid, marketCards:marketCards,msg:info.msg});
 }
 
-Jaipur.prototype.sellCards = function(info){
+Jaipur.prototype.sellCards = function(info) {
 //give player tokens and check for bonuses
 	var tokenids = [];
-	for(var i in info.goods){
+	for(var i in info.goods) {
 		this.giveCards(info.goods[i], 'sold');
 		var type = this.getCardById(info.goods[i]).type;
 		var tokenid = this.giveTokens(type);
@@ -142,15 +142,15 @@ Jaipur.prototype.sellCards = function(info){
 			tokenids.push(tokenid)
 	}
 
-	if(info.goods.length == 3){
+	if(info.goods.length == 3) {
 		var tokenid = this.giveTokenBonus('combo_3');
 		if(tokenid > 0)
 			tokenids.push(tokenid)
-	}else if(info.goods.length == 4){
+	}else if(info.goods.length == 4) {
 		var tokenid = this.giveTokenBonus('combo_4');
 		if(tokenid > 0)
 			tokenids.push(tokenid)
-	}else if (info.goods.length > 4){
+	}else if (info.goods.length > 4) {
 		var tokenid = this.giveTokenBonus('combo_5');
 		if(tokenid > 0)
 			tokenids.push(tokenid)
@@ -160,27 +160,27 @@ Jaipur.prototype.sellCards = function(info){
 	this.checkEnoughGoods();
 }
 
-Jaipur.prototype.playerLeave = function(){
+Jaipur.prototype.playerLeave = function() {
 
 }
 
-Jaipur.prototype.dispatchToPlayers = function(event,info){
-	for(var i in this.players){
+Jaipur.prototype.dispatchToPlayers = function(event,info) {
+	for(var i in this.players) {
 		var player = this.players[i];
 		player.emit(event,info);
 	}
 }
-Jaipur.prototype.getCardById = function(id){
-	for(var i in this.allCards){
-		if(this.allCards[i].cardid == id){
+Jaipur.prototype.getCardById = function(id) {
+	for(var i in this.allCards) {
+		if(this.allCards[i].cardid == id) {
 			return this.allCards[i];
 		}
 	}
 }
 
-Jaipur.prototype.getCardsByHolder = function(holder){
+Jaipur.prototype.getCardsByHolder = function(holder) {
 	var holderCards = [];
-	for(var i in this.allCards){
+	for(var i in this.allCards) {
 		var cardObj = this.allCards[i];
 		if(cardObj.holder == holder)
 			holderCards.push(cardObj);
@@ -188,11 +188,11 @@ Jaipur.prototype.getCardsByHolder = function(holder){
 	return holderCards;
 }
 
-Jaipur.prototype.giveCards = function(cardid,to){
-	for(var i in this.allCards){
+Jaipur.prototype.giveCards = function(cardid,to) {
+	for(var i in this.allCards) {
 		var cardObj = this.allCards[i];
-		if(cardObj.cardid == cardid){
-			if(to == 'sold'){
+		if(cardObj.cardid == cardid) {
+			if(to == 'sold') {
 				var soldCards = this.getCardsByHolder('sold');
 					cardObj.sellid = soldCards.length;
 			}
@@ -201,9 +201,9 @@ Jaipur.prototype.giveCards = function(cardid,to){
 	}
 }
 
-Jaipur.prototype.getCardIdsByHolder = function(holder){
+Jaipur.prototype.getCardIdsByHolder = function(holder) {
 	var cardids = [];
-	for(var i = this.allCards.length-1; i > -1; i--){
+	for(var i = this.allCards.length-1; i > -1; i--) {
 		var cardObj = this.allCards[i];
 		if(cardObj.holder == holder)
 			cardids.push(cardObj.cardid);
@@ -211,14 +211,14 @@ Jaipur.prototype.getCardIdsByHolder = function(holder){
 	return cardids;
 }
 
-Jaipur.prototype.drawCard = function(count,holder){
+Jaipur.prototype.drawCard = function(count,holder) {
 	if(count === void 0) count = 1;
 	if(holder === void 0) holder = 'market';
 	var i = 0;
 	var cardids = [];
-	while(i < count){
+	while(i < count) {
 		var drawPile = this.getCardsByHolder('deck');
-		if(drawPile.length > 0){
+		if(drawPile.length > 0) {
 			var cardIndex = Math.floor(Math.random()*drawPile.length);
 				drawPile[cardIndex].holder = holder;
 				cardids.push(drawPile[cardIndex].cardid);
@@ -227,20 +227,20 @@ Jaipur.prototype.drawCard = function(count,holder){
 	}
 	return cardids;
 }
-Jaipur.prototype.getMarketTokensByType = function(type){
+Jaipur.prototype.getMarketTokensByType = function(type) {
 	var holderTokens = [];
-	for(var i in this.allTokens){
+	for(var i in this.allTokens) {
 		var tokenObj = this.allTokens[i];
 		if(tokenObj.holder == 'market' && tokenObj.type == type)
 			holderTokens.push(tokenObj);
 	}
 	return holderTokens;
 }
-Jaipur.prototype.giveTokens = function(type,to){
-	for(var i in this.allTokens){
+Jaipur.prototype.giveTokens = function(type,to) {
+	for(var i in this.allTokens) {
 		var tokenObj = this.allTokens[i];
-		if(tokenObj.type == type){
-			if(tokenObj.holder == 'market'){
+		if(tokenObj.type == type) {
+			if(tokenObj.holder == 'market') {
 				tokenObj.holder = to;
 				return tokenObj.tokenid;
 			}
@@ -249,17 +249,17 @@ Jaipur.prototype.giveTokens = function(type,to){
 	return 0;
 }
 
-Jaipur.prototype.giveTokenBonus = function(type,to){
+Jaipur.prototype.giveTokenBonus = function(type,to) {
 	var bonusTokens = [];
-	for(var i in this.allTokens){
+	for(var i in this.allTokens) {
 		var tokenObj = this.allTokens[i];
-		if(tokenObj.type == type){
-			if(tokenObj.holder == 'market'){
+		if(tokenObj.type == type) {
+			if(tokenObj.holder == 'market') {
 				bonusTokens.push(tokenObj);
 			}
 		}
 	}
-	if(bonusTokens.length > 0){
+	if(bonusTokens.length > 0) {
 		var tokenIndex = Math.floor(Math.random()*bonusTokens.length);
 			bonusTokens[tokenIndex].holder = to;
 			return bonusTokens[tokenIndex].tokenid;
@@ -267,10 +267,10 @@ Jaipur.prototype.giveTokenBonus = function(type,to){
 	return 0;
 }
 
-Jaipur.prototype.checkEnoughGoods = function(){
+Jaipur.prototype.checkEnoughGoods = function() {
 	var goodsTokens = [	'diamond','gold','silver','silk','spice','leather'];
 	var emptyTokens = 0;
-	for(var i in goodsTokens){
+	for(var i in goodsTokens) {
 		var marketTokens = this.getMarketTokensByType(goodsTokens[i]);
 		if(marketTokens.length == 0)
 			emptyTokens++;
@@ -278,10 +278,10 @@ Jaipur.prototype.checkEnoughGoods = function(){
 	if(emptyTokens > 2)
 		this.endRound();
 }
-Jaipur.prototype.endRound = function(){
+Jaipur.prototype.endRound = function() {
 		this.dispatchToPlayers('roundEnd',{info:'roundEnded'});
 }
-Jaipur.prototype.getInfo = function(player1){
+Jaipur.prototype.getInfo = function(player1) {
 	var returnObj = {};
 		returnObj.playerid = (player1) ? 'player1' : 'player2';
 		returnObj.enemyid = (player1) ? 'player2' : 'player1';

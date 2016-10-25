@@ -1,4 +1,4 @@
-var jaipurCards = function(){
+var jaipurCards = function() {
 	var cardList = [];
 	var cardObj = {
 		'diamond':6,
@@ -10,10 +10,10 @@ var jaipurCards = function(){
 		'camel':11
 	};
 	var cardid = 0;
-	for(var index in cardObj){
+	for(var index in cardObj) {
 		var count = cardObj[index];
 		var i = 0;
-		while(i < count){
+		while(i < count) {
 			var obj = {
 				id: cardid,
 				type:index,

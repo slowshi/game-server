@@ -1,4 +1,4 @@
-var jaipurTokens = function(){
+var jaipurTokens = function() {
 	var tokenList = [];
 	var tokenObj = {
 		'diamond':[7,7,5,5,5],
@@ -12,10 +12,10 @@ var jaipurTokens = function(){
 		'combo_5':[10,10,9,9,8]
 	};
 	var tokenid = 0;
-	for(var index in tokenObj){
+	for(var index in tokenObj) {
 		var tokensType = tokenObj[index];
 		var i = 0;
-		for(var toks in tokensType){
+		for(var toks in tokensType) {
 			var obj = {
 				id:tokenid,
 				type:index,

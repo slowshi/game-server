@@ -16,12 +16,12 @@ module.exports = {
 	'skarner','sona','soraka','swain','syndra','tahm_kench','talon','taric','teemo','thresh','tristana','trundle',
 	'tryndamere','twisted_fate','twitch','udyr','urgot','varus','vayne','veigar','vel_koz','vi','viktor','vladimir',
 	'volibear','warwick','wukong','xerath','xin_zhao','yasuo','yorick','zac','zed','ziggs','zilean','zyra'],
-	registerIo:function(io, socket){
+	registerIo:function(io, socket) {
 		this.io = io;
 		this.setupUser(socket);
 		socket.on('GameUser:SetUserInfo',this.onSetUserInfo.bind(this));
 	},
-	setupUser:function(socket){
+	setupUser:function(socket) {
 		var name = this.assignGuestName(socket);
 		this.userList[socket.id] = {
 			name: name,
@@ -33,24 +33,24 @@ module.exports = {
 		var userInfo = this.getUserInfo(socket.id);
 		socket.emit('GameUser:UpdateUserInfo',userInfo);
 	},
-	onSetUserInfo:function(data){
+	onSetUserInfo:function(data) {
 		console.log('updateUser',data);
 	},
-	getRandomChampion:function(){
+	getRandomChampion:function() {
 		var index = Math.floor(Math.random() * (this.champions.length-1));
 		return this.champions[index];
 	},
-	assignGuestName:function(socket){
+	assignGuestName:function(socket) {
 		var name = 'Guest' + this.guestNumber;
 		this.namesUsed.push(name);
 		this.guestNumber += 1;
 		socket.emit('GameUser:SetUserName',{success:true, name:name});
 		return name;
 	},
-	getServerUserInfo:function(socketid){
+	getServerUserInfo:function(socketid) {
 		return this.userList[socketid];
 	},
-	getUserInfo:function(socketid){
+	getUserInfo:function(socketid) {
 		var userInfo = this.userList[socketid];
 		return {
 			name: userInfo.name,

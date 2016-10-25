@@ -1,5 +1,5 @@
-define([],function(){
-	var EventEmitterImpl = function(){
+define([],function() {
+	var EventEmitterImpl = function() {
 		/**
 		* Hash of event names and arrays of handler functions. Each function
 		* associated with an event name is called whenever that event is triggered

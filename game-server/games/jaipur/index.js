@@ -1,5 +1,5 @@
-define(['app','./jaipur-service/index.js'],function(app){
-	app.registerDirective('jaipur',function(){
+define(['app','./jaipur-service/index.js'],function(app) {
+	app.registerDirective('jaipur',function() {
 		return{
 			restrict:'E',
 			transclude: true,
@@ -11,18 +11,18 @@ define(['app','./jaipur-service/index.js'],function(app){
 			controller: 'JaipurController',
 			controllerAs: 'ctrl',
 			bindToController: true,
-			link: function(scope, elem, attrs){
+			link: function(scope, elem, attrs) {
 
 			}
 		};
 	});
-	app.registerController('JaipurController',['$scope','cssInjector','JaipurService',function($scope,cssInjector,JaipurService){
+	app.registerController('JaipurController',['$scope','cssInjector','JaipurService',function($scope,cssInjector,JaipurService) {
 		cssInjector.add('/game-server/games/jaipur/index.css');
 		cssInjector.add('/game-server/games/jaipur/images/cards.css');
 		cssInjector.add('/game-server/games/jaipur/images/tokens.css');
 		this.JaipurService = JaipurService;
 		this.JaipurService.registerUser();
-		this.getClass = function(card){
+		this.getClass = function(card) {
 			return this.JaipurService.getCardClass(card);
 		}
 	}])

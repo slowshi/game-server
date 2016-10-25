@@ -10,7 +10,7 @@ define(['app'],function(app) {
 			controller: 'GameViewController',
 			controllerAs: 'ctrl',
 			bindToController: true,
-			link: function(scope, elem, attrs){
+			link: function(scope, elem, attrs) {
 			}
 		};
 	});
@@ -27,7 +27,7 @@ define(['app'],function(app) {
         var height = $window.innerHeight-40;
 
         var scale;
-        if(width >= maxWidth && height >= maxHeight){
+        if(width >= maxWidth && height >= maxHeight) {
             wrapper.style.webkitTransform = '';
            	wrapper.style.left = (width - maxWidth) / 2 + 'px';
         	wrapper.style.top = (height - maxHeight) / 2 + 'px';
@@ -41,8 +41,8 @@ define(['app'],function(app) {
 		$window.onresize = resizeWindow;
 
 		this.loadView = '';
-		this.onChangeState = function(state){
-			if(state !== this.loadView){
+		this.onChangeState = function(state) {
+			if(state !== this.loadView) {
 				this.loadView = state;
 				$state.transitionTo(this.loadView);
 			}

@@ -1,9 +1,9 @@
-define(['app','states'],function(app,states){
-	var appInit = function(){
+define(['app','states'],function(app,states) {
+	var appInit = function() {
 		var stateProvider;
 		var couchPotatoProvider;
 		var urlRouterProvider;
-		app.config(['$stateProvider','$couchPotatoProvider','$sceDelegateProvider','$urlRouterProvider','$locationProvider', function($stateProvider,$couchPotatoProvider,$sceDelegateProvider,$urlRouterProvider,$locationProvider){
+		app.config(['$stateProvider','$couchPotatoProvider','$sceDelegateProvider','$urlRouterProvider','$locationProvider', function($stateProvider,$couchPotatoProvider,$sceDelegateProvider,$urlRouterProvider,$locationProvider) {
 			stateProvider = $stateProvider;
 			couchPotatoProvider = $couchPotatoProvider;
 			urlRouterProvider = $urlRouterProvider;
@@ -21,7 +21,7 @@ define(['app','states'],function(app,states){
 		}]);
 		
 		app.run(['$couchPotato', '$state', '$stateParams', '$rootScope',
-			function($couchPotato, $state, $stateParams, $rootScope){
+			function($couchPotato, $state, $stateParams, $rootScope) {
 			app.lazy = $couchPotato;
 			$rootScope.$state = $state;
      		$rootScope.$stateParams = $stateParams;
@@ -39,7 +39,7 @@ define(['app','states'],function(app,states){
 				}
 			});	
 
-			for(var key in states){
+			for(var key in states) {
 				var state = states[key];
 				var stateName = key;
 				stateProvider.state(key,{
@@ -53,10 +53,10 @@ define(['app','states'],function(app,states){
 				});
 			}
 		}]);
-		var bootstrapApplication = (function(){
+		var bootstrapApplication = (function() {
 			angular.element(document)
-				.ready(function(){
-					angular.bootstrap(document,[app.name,function(){
+				.ready(function() {
+					angular.bootstrap(document,[app.name,function() {
 						angular.element(document)
 							.find('html')
 							.addClass('ng-app');
