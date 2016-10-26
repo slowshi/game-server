@@ -13,7 +13,7 @@ module.exports = {
 		//console.log("Requesting Page: "+ filePath);
 		module.exports.validatePage(res,filePath);
 	},
-	validatePage:function(res,filePath) {
+	validatePage: function(res, filePath) {
 		fs.exists(filePath,function(exists) {
 			if(exists) {
 				fs.readFile(filePath,function(err,data) {
