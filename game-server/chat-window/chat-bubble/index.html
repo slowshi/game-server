@@ -1,6 +1,7 @@
 <div>
 	<ol id="discussion" class="discussion">
-		<li ng-repeat="chatdata in ctrl.ChatWindowService.chatLog track by $index" ng-class="{'other': !ctrl.GameUser.checkValidSockets(chatdata.socketid), 'self': ctrl.GameUser.checkValidSockets(chatdata.socketid)}">
+		<li ng-repeat="chatdata in ctrl.storeState.chatWindowService.chatLog track by $index" 
+			ng-class="{'other': !ctrl.GameUser.checkValidSockets(chatdata.socketid), 'self': ctrl.GameUser.checkValidSockets(chatdata.socketid)}">
 			<div class="avatar">
 		    	<div class="champs {{chatdata.avatar}}"></div>
 		  	</div>

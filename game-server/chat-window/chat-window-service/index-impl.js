@@ -1,46 +1,18 @@
-define(['redux'], function(Redux) {
-  var ChatWindowService = function(EventEmitter, GameUser) {
-    /**
-     * Store callback
-     * @param {Object} state
-     * @param {Object} action
-     * @return {Object}state
-     */
-    function updateChatStore(state, action) {
-      if (typeof state === 'undefined') {
-        state = {
-          chatLog: [],
-          chatList: [],
-          chatRooms: [],
-        };
-      }
-
-      switch (action.type) {
-        case 'recieveMessage':
-          state.chatLog.push(action.message);
-        break;
-        case 'updateUserList':
-          state.chatRooms[action.room] = action.userList;
-        break;
-      }
-      return state;
-    }
-
-    var chatStore = Redux.createStore(updateChatStore);
+define(['redux',
+        './reducer.js'],
+  function(Redux, reducer) {
+  var ChatWindowService = function(EventEmitter, GameUser, storeService) {
+    storeService.addReducer('chatWindowService', reducer);
     /**
      *  render
      */
     function forceApply() {
       EventEmitter.trigger('apply');
     }
-    forceApply();
-    chatStore.subscribe(forceApply);
+    storeService.store.subscribe(forceApply);
     return {
       emitter: EventEmitter,
       user: GameUser,
-      chatLog: chatStore.getState().chatLog,
-      chatList: [],
-      chatRooms: chatStore.getState().chatRooms,
       registerUser: function() {
         var socketid = this.user.socket.socket.sessionid;
         this.emitter.subscribe('GameUser:Disconnected', this.onDisconnect.bind(this));
@@ -57,7 +29,7 @@ define(['redux'], function(Redux) {
         this.user.socket.removeAllListeners('ChatServer:UpdateUserList');
       },
       updateChatLog: function(message) {
-        chatStore.dispatch({
+        storeService.store.dispatch({
           type: 'recieveMessage',
           message: message,
         });
@@ -74,7 +46,7 @@ define(['redux'], function(Redux) {
         }
       },
       updateUserList: function(data) {
-        chatStore.dispatch({
+        storeService.store.dispatch({
           type: 'updateUserList',
           room: data.room,
           userList: data.users,

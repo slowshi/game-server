@@ -14,14 +14,14 @@ define(['app'], function(app) {
 	});
 	app.registerController('ChatBubbleController',
 	['$scope', '$window', '$element', 'EventEmitter',
-	'cssInjector', 'ChatWindowService', 'GameUser',
+	'cssInjector', 'ChatWindowService', 'GameUser', 'storeService',
 	function($scope, $window, $element, EventEmitter,
-	cssInjector, ChatWindowService, GameUser) {
+	cssInjector, ChatWindowService, GameUser, storeService) {
 		cssInjector.add('/game-server/chat-window/chat-bubble/index.css');
 		var _this = this;
 		_this.ChatWindowService = ChatWindowService;
 		_this.GameUser = GameUser;
-		_this.chatLog = _this.ChatWindowService.chatLog;
+		_this.storeState = storeService.store.getState();
 		_this.message = '';
 		_this.getTimeSince = function() {
 			return _this.time;
@@ -31,7 +31,7 @@ define(['app'], function(app) {
 		};
 
 		var sendMessage = function(event) {
-			_this.ChatWindowService.sendMessage(_this.message, GameUser);
+			_this.ChatWindowService.sendMessage(_this.message);
 			_this.message = '';
 			return false;
 		};

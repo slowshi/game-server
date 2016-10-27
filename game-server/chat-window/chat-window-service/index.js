@@ -1,7 +1,8 @@
 define([
 	'app',
-	'./index-impl.js'],
+	'./index-impl.js',
+	],
 function(app, ChatWindowServiceImpl) {
 	app.registerService('ChatWindowService',
-	['EventEmitter', 'GameUser', ChatWindowServiceImpl]);
+	['EventEmitter', 'GameUser', 'storeService', ChatWindowServiceImpl]);
 });
