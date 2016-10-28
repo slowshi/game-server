@@ -1,7 +1,6 @@
 define([], function() {
     var initialState = {
         name: '',
-        image: '',
         socket: '',
         socketid: '',
         avatar: '',
@@ -14,10 +13,20 @@ define([], function() {
         }
         switch (action.type) {
             case 'setName':
-                state.chatLog.push(action.message);
+                state.name = action.name;
             break;
-            case 'updateUserList':
-                state.chatRooms[action.room] = action.userList;
+            case 'setSocket':
+                state.socket = action.socket;
+            break;
+            case 'setAvatar':
+                state.avatar = action.avatar;
+            break;
+            case 'setSocketid':
+                state.socketid = state.socket.socket.sessionid;
+				state.validSocketIds.push(state.socketid);
+            break;
+            case 'setGameid':
+                state.gameid = action.gameid;
             break;
         }
         return state;

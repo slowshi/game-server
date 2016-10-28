@@ -4,5 +4,5 @@ define([
 	],
 function(app, ChatWindowServiceImpl) {
 	app.registerService('ChatWindowService',
-	['EventEmitter', 'GameUser', 'storeService', ChatWindowServiceImpl]);
+	['storeService', ChatWindowServiceImpl]);
 });
