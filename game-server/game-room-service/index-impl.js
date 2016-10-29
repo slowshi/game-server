@@ -1,94 +1,92 @@
 define([],function() {
-	var GameRoomService = function(GameUser,EventEmitter) {
+	var GameRoomService = function(GameUser, EventEmitter, storeService) {
+		var gameUserStore = storeService.store.getState().gameUser;
 		return {
-			user:GameUser,
-			emitter:EventEmitter,
-			gameRooms:{},
-			gameList:{},
-			registerUser:function() {
-				this.user.socket.on('GameServer:UpdateGameList',this.onUpdateGameList.bind(this));
-				this.user.socket.on('GameServer:UpdateGameRooms',this.onUpdateGameRooms.bind(this));
-				this.user.socket.on('GameServer:GameRoomCreated',this.onMakeGameRoom.bind(this));
-				this.user.socket.on('GameServer:GameLoaded',this.onGameLoaded.bind(this));
-				this.emitter.subscribe('GameUser:Disconnect',this.onDisconnect.bind(this));
+			user: GameUser,
+			emitter: EventEmitter,
+			gameRooms: {},
+			gameList: {},
+			onConnect: function() {
+				gameUserStore.socket.on('GameServer:UpdateGameList', this.onUpdateGameList.bind(this));
+				gameUserStore.socket.on('GameServer:GameRoomCreated', this.onMakeGameRoom.bind(this));
+				gameUserStore.socket.on('GameServer:GameLoaded', this.onGameLoaded.bind(this));
+				gameUserStore.socket.on('GameServer:UpdateGameRooms', this.onUpdateGameRooms.bind(this));
 			},
-			onUpdateGameList:function(data) {
-				this.gameList = data;
-				this.emitter.trigger('apply');
-			},
-			onUpdateGameRooms:function(data) {
-				this.gameRooms = data;
-				this.emitter.trigger('apply');
-			},
-			onMakeGameRoom:function(gameid) {
-				this.user.gameid = gameid;
-			},
-			onDisconnect:function(user) {
+			onDisconnect: function(user) {
 				console.log('gameRoomDisconnect');
-				this.user.socket.removeAllListeners('GameServer:UpdateGameList');
-				this.user.socket.removeAllListeners('GameServer:UpdateGameRooms');
-				this.user.socket.removeAllListeners('GameServer:GameRoomCreated');
-				this.user.socket.removeAllListeners('GameServer:GameLoaded');
+				gameUserStore.socket.removeAllListeners('GameServer:UpdateGameList');
+				gameUserStore.socket.removeAllListeners('GameServer:UpdateGameRooms');
+				gameUserStore.socket.removeAllListeners('GameServer:GameRoomCreated');
+				gameUserStore.socket.removeAllListeners('GameServer:GameLoaded');
 			},
-			createGame:function() {
+			onUpdateGameList: function(data) {
+				this.gameList = data;
+			},
+			onUpdateGameRooms: function(data) {
+				this.gameRooms = data;
+			},
+			onMakeGameRoom: function(gameid) {
+				GameUser.setGameid(gameid);
+			},
+			createGame: function(name) {
 				var gameInfo = {
-					socketid: this.user.socketid,
-					game:'onitama'
+					socketid: gameUserStore.socketid,
+					game: name,
 				};
-				this.user.socket.emit('GameServer:MakeGameRoom',gameInfo);
-				this.emitter.trigger('GameView:ChangeState','gameroom');
+				gameUserStore.socket.emit('GameServer:MakeGameRoom', gameInfo);
+				//this.emitter.trigger('GameView:ChangeState', 'gameroom');
 			},
-			joinGameRoom:function(gameid) {
+			joinGameRoom: function(gameid) {
 				var gameInfo = {
 					gameid: gameid,
-					socketid: this.user.socketid
-				}
-				this.user.gameid = gameid;
-				this.user.socket.emit('GameServer:JoinGameRoom',gameInfo);
-				this.emitter.trigger('GameView:ChangeState','gameroom');
-			},
-			leaveGameRoom:function() {
-				var gameInfo = {
-					gameid: this.user.gameid,
-					socketid: this.user.socketid
+					socketid: gameUserStore.socketid,
 				};
-				this.user.socket.emit('GameServer:LeaveGameRoom',gameInfo);
-				this.user.gameid = null;
-				this.emitter.trigger('GameView:ChangeState','lobby');
+				gameUserStore.gameid = gameid;
+				gameUserStore.socket.emit('GameServer:JoinGameRoom', gameInfo);
+				//this.emitter.trigger('GameView:ChangeState','gameroom');
 			},
-			startGame:function() {
-				this.user.socket.emit('GameServer:StartGame',this.user.gameid);
+			leaveGameRoom: function() {
+				var gameInfo = {
+					gameid: gameUserStore.gameid,
+					socketid: gameUserStore.socketid,
+				};
+				gameUserStore.socket.emit('GameServer:LeaveGameRoom', gameInfo);
+				gameUserStore.gameid = null;
+				//this.emitter.trigger('GameView:ChangeState', 'lobby');
 			},
-			onGameLoaded:function() {
+			startGame: function() {
+				gameUserStore.socket.emit('GameServer:StartGame', gameUserStore.gameid);
+			},
+			onGameLoaded: function() {
 				var gameName = this.getUsersGame().game;
-				this.emitter.trigger('GameView:ChangeState',gameName);
+				//this.emitter.trigger('GameView:ChangeState', gameName);
 			},
-			getGameInfo:function(game) {
+			getGameInfo: function(game) {
 				return this.gameList[game];
 			},
-			getGameRoomOccupants:function(gameid) {
+			getGameRoomOccupants: function(gameid) {
 				var room = this.gameRooms[gameid];
 				var gameInfo = this.getGameInfo(room.game);
 				return Object.keys(room.players).length + '/' + gameInfo.max_players;
 			},
-			getUsersGame:function() {
-				var room = this.gameRooms[this.user.gameid];
+			getUsersGame: function() {
+				var room = this.gameRooms[gameUserStore.gameid];
 				return room;
 			},
-			checkValidRoom:function(gameid) {
+			checkValidRoom: function(gameid) {
 				var room = this.gameRooms[gameid];
 				var gameInfo = this.getGameInfo(room.game);
 				var gameOpen = Object.keys(room.players).length < gameInfo.max_players;
-				var hasUser = gameid == this.user.gameid;
+				var hasUser = gameid == gameUserStore.gameid;
 				return gameOpen && !hasUser;
 			},
-			gameRoomReady:function() {
-				var room = this.gameRooms[this.user.gameid];
+			gameRoomReady: function() {
+				var room = this.gameRooms[gameUserStore.gameid];
 				var gameInfo = this.getGameInfo(room.game);
 				var gameReady = Object.keys(room.players).length >= gameInfo.min_players;
-				var isOwner = room.owner == this.user.socketid;
+				var isOwner = room.owner == gameUserStore.socketid;
 				return gameReady && isOwner;
-			}
+			},
 		};
 	};
 	return GameRoomService;

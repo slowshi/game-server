@@ -13,19 +13,16 @@ define(['app'], function(app) {
 	};
 	});
 	app.registerController('ChatUsersController',
-	['$scope', '$window', '$element', 'EventEmitter',
-	'cssInjector', 'ChatWindowService', 'GameUser', 'storeService',
-	function($scope, $window, $element, EventEmitter,
-	cssInjector, ChatWindowService, GameUser, storeService) {
+	['$scope', '$window', '$element', 'cssInjector', 'ChatWindowService',
+	function($scope, $window, $element, cssInjector, ChatWindowService) {
 		cssInjector.add('/game-server/chat-window/chat-users/index.css');
 		var _this = this;
 		_this.ChatWindowService = ChatWindowService;
-		_this.storeState = storeService.store.getState();
 		var resizeChat = function() {
 			var newHeight = $window.innerHeight - 88;
 			var discussion = $element.children()[0];
 			discussion.style.height = newHeight + 'px';
 		};
-		EventEmitter.subscribe('windowResize', resizeChat);
+		$window.onresize = resizeChat;
 	}]);
 });

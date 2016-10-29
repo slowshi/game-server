@@ -1,4 +1,6 @@
-define(['./reducer.js'],
+define([
+  './reducer.js',
+  ],
   function(reducer) {
   var ChatWindowService = function(storeService) {
     storeService.addReducer('chatWindow', reducer);
@@ -8,12 +10,12 @@ define(['./reducer.js'],
         socketid = storeService.store.getState().gameUser.socketid;
         userSocket = storeService.store.getState().gameUser.socket;
         var joinQuery = {
-          room: 'Lobby',
+          room: 'lobby',
           socketid: socketid,
         };
         userSocket.emit('ChatServer:JoinRoom', joinQuery);
         userSocket.on('ChatServer:RecieveMessage', recieveMessage);
-        userSocket.on('ChatServer:UpdateUserList', updateUserList);
+        userSocket.on('GameUser:UpdateUserList', updateUserList);
     };
     var onDisconnect = function(user) {
           userSocket.removeAllListeners('ChatServer:RecieveMessage');
@@ -36,23 +38,42 @@ define(['./reducer.js'],
         checkImage(message, onCheckImage);
       }
     };
+    var getUsersInRoom = function(room) {
+      var userList = storeService.store.getState().chatWindow.userList;
+      var roomUsers = [];
+      for(var i in userList) {
+        var userRooms = userList[i].rooms;
+        for(var j in userRooms) {
+          if(userRooms[j] === room) {
+            roomUsers.push(userList[i]);
+          }
+        }
+      }
+      return roomUsers;
+    };
     var updateUserList = function(data) {
       storeService.store.dispatch({
         type: 'updateUserList',
-        room: data.room,
-        userList: data.users,
+        userList: data,
       });
     };
-    var sendMessage = function(text) {
-      if (text === '') return;
+    var checkAvatar = function(text) {
       if (text.substring(0, 2) == '!~') {
         var champStr = text.substr(2);
         storeService.store.dispatch({
           type: 'setAvatar',
           avatar: champStr,
         });
-        userSocket.emit('GameUser:ChangeAvatar', champStr);
+        var userInfo = {
+          avatar: champStr,
+          socketid: socketid,
+        };
+        userSocket.emit('GameUser:SetUserInfo', userInfo);
       }
+    };
+    var sendMessage = function(text) {
+      if (text === '') return;
+      checkAvatar(text);
       var type = '';
       if (validURL(text)) {
         type = 'url';
@@ -64,7 +85,7 @@ define(['./reducer.js'],
         }
       }
       var obj = {
-        room: 'Lobby',
+        room: 'lobby',
         text: text,
         type: type,
         socketid: socketid,
@@ -133,6 +154,7 @@ define(['./reducer.js'],
     return {
       onConnect: onConnect,
       onDisconnect: onDisconnect,
+      getUsersInRoom: getUsersInRoom,
       sendMessage: sendMessage,
     };
   };

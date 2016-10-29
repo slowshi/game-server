@@ -27,6 +27,12 @@ define([
 				gameid: gameid,
 			});
 		};
+		var setRooms = function setRooms(rooms) {
+			storeService.store.dispatch({
+				type: 'setRooms',
+				rooms: rooms,
+			});
+		};
 		var userSocket = null;
 		var onConnect = function onConnect() {
 			userSocket = storeService.store.getState().gameUser.socket;
@@ -39,6 +45,7 @@ define([
 		var onSetUserInfo = function onSetUserInfo(data) {
 			setName(data.name);
 			setAvatar(data.avatar);
+			setRooms(data.rooms);
 		};
 		var getRandomChampion = function getRandomChampion(){
 				var index = Math.floor(Math.random() * (avatars.length-1));

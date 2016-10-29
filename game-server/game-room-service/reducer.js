@@ -1,12 +1,7 @@
 define([], function() {
     var initialState = {
-        name: '',
-        socket: '',
-        socketid: '',
-        avatar: '',
-        validSocketIds: [],
-        gameid: null,
-        rooms: [],
+        gameRooms: {},
+		gameList: {},
     };
     var ChatWindowReducer = function(state, action) {
         if(typeof state === 'undefined') {

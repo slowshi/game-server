@@ -8,30 +8,31 @@ define(['app',
 		'./store-service/index.js',
 	], function(app, io) {
 	app.registerController('GameServerController',
-		['$rootScope', '$window', 'cssInjector', 'GameUser', 'storeService',
-		'EventEmitter', 'ChatWindowService', 'GameRoomService',
-		function($rootScope, $window, cssInjector, GameUser, storeService,
-		EventEmitter, ChatWindowService, GameRoomService) {
+		['$scope', '$window', 'cssInjector', 'GameUser', 'storeService',
+		'EventEmitter', 'ChatWindowService', 'GameRoomService', '$state',
+		function($scope, $window, cssInjector, GameUser, storeService,
+		EventEmitter, ChatWindowService, GameRoomService, $state) {
 			cssInjector.add('/css/index.css');
 			cssInjector.add('/css/bootstrap.min.css');
 			cssInjector.add('/css/champs.css');
 			var _this = this;
 			var rootScopeApply = function() {
 				console.log(storeService.store.getState());
-				var phase = $rootScope.$root.$$phase;
+				var phase = $scope.$$phase;
 				if( phase != '$apply' && phase != '$digest') {
-					$rootScope.$digest();
+					$scope.$digest();
 				}
 			};
 			storeService.store.subscribe(rootScopeApply);
 			var userConnected = function userConnected() {
 				GameUser.onConnect();
 				ChatWindowService.onConnect();
-				//this.GameRoomService.registerUser();
+				GameRoomService.onConnect();
 			};
 			var userDisconnected = function userDisconnected() {
 				GameUser.onDisconnect();
 				ChatWindowService.onDisconnect();
+				GameRoomService.onDisconnect();
 			};
 			var userSocket = io.connect('', {reconnect: true});
 			storeService.store.dispatch({
@@ -41,8 +42,14 @@ define(['app',
 			userSocket.on('connect', userConnected);
 			userSocket.on('disconnect', userDisconnected);
 
-			_this.createGame = function() {
-				EventEmitter.trigger('GameView:ChangeState', 'lobby');
+			_this.loadView = '';
+			_this.onChangeState = function(state) {
+				if(state !== _this.loadView) {
+					_this.loadView = state;
+					$state.transitionTo(_this.loadView);
+				}
 			};
+			EventEmitter.subscribe('GameView:ChangeState', _this.onChangeState);
+			$state.transitionTo('lobby');
 	}]);
 });
