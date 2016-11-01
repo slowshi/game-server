@@ -1,7 +1,7 @@
-define(['app'],function(app) {
-	app.registerDirective('gameLobby',function() {
+define(['app'], function(app) {
+	app.registerDirective('gameLobby', function() {
 		return{
-			restrict:'E',
+			restrict: 'E',
 			transclude: true,
 			scope: {
 
@@ -13,17 +13,13 @@ define(['app'],function(app) {
 			bindToController: true,
 			link: function(scope, elem, attrs) {
 
-			}
+			},
 		};
 	});
-	app.registerController('GameLobbyController',['$scope','cssInjector','GameRoomService',function($scope,cssInjector,GameRoomService) {
+	app.registerController('GameLobbyController',
+	['$scope', 'cssInjector', 'GameRoomService',
+	function($scope, cssInjector, GameRoomService) {
 		cssInjector.add('/game-server/game-lobby/index.css');
 		this.GameRoomService = GameRoomService;
-		this.createGame = function() {
-			this.GameRoomService.createGame();
-		};
-		this.joinGame = function(gameid) {
-			this.GameRoomService.joinGameRoom(gameid);
-		};
-	}])
+	}]);
 });

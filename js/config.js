@@ -9,19 +9,19 @@ require.config({
         'app'                  : 'app',
         'app-init'             : 'app-init',
         'socket-io'            : '/socket.io/socket.io',
-        'event-emitter'        : 'event-emitter/index'
+        'event-emitter'        : 'event-emitter/index',
     },
     shim:{
         'angular': {
             exports: 'angular'
         },
-        'app':{
-            deps:['angular']
+        'app': {
+            deps: ['angular']
         },
-        'app-init':{
-            deps:['angular','app','socket-io']
-        }
-    }
+        'app-init': {
+            deps: ['angular','app','socket-io']
+        },
+    },
 });
 
 require(['app-init'],function(appInit) {

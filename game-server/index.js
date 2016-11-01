@@ -17,7 +17,6 @@ define(['app',
 			cssInjector.add('/css/champs.css');
 			var _this = this;
 			var rootScopeApply = function() {
-				console.log(storeService.store.getState());
 				var phase = $scope.$$phase;
 				if( phase != '$apply' && phase != '$digest') {
 					$scope.$digest();
@@ -35,21 +34,12 @@ define(['app',
 				GameRoomService.onDisconnect();
 			};
 			var userSocket = io.connect('', {reconnect: true});
+			userSocket.on('connect', userConnected);
+			userSocket.on('disconnect', userDisconnected);
 			storeService.store.dispatch({
 				type: 'setSocket',
 				socket: userSocket,
 			});
-			userSocket.on('connect', userConnected);
-			userSocket.on('disconnect', userDisconnected);
-
-			_this.loadView = '';
-			_this.onChangeState = function(state) {
-				if(state !== _this.loadView) {
-					_this.loadView = state;
-					$state.transitionTo(_this.loadView);
-				}
-			};
-			EventEmitter.subscribe('GameView:ChangeState', _this.onChangeState);
 			$state.transitionTo('lobby');
 	}]);
 });
