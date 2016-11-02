@@ -15,7 +15,7 @@ define([], function() {
                 state.gameList = action.gameList;
             break;
         }
-        return state;
+       return state;
     };
     return ChatWindowReducer;
 });

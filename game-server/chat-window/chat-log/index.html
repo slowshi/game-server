@@ -2,7 +2,7 @@
 	<ol id="discussion" class="discussion">
 		<li ng-repeat="chatdata in ctrl.ChatLogService.chatLog[ctrl.roomid] track by $index" 
 			ng-class="{'other': !chatdata.isUser, 'self': chatdata.isUser}">
-			<div class="avatar">
+ 			<div class="avatar">
 		    	<div class="champs {{chatdata.avatar}}"></div>
 		  	</div>
 		  	<div class="messages">

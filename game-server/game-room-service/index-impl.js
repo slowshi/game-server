@@ -5,6 +5,7 @@ define([
 		storeService.addReducer('gameServer', reducer);
 		var gameUserStore = storeService.store.getState().gameUser;
 		var gameServerStore = storeService.store.getState().gameServer;
+		var gameRooms = [];
 		var onConnect = function onConnect() {
 			gameUserStore.socket.on('GameServer:UpdateGameList', onUpdateGameList);
 			gameUserStore.socket.on('GameServer:GameRoomCreated', onMakeGameRoom);
@@ -95,6 +96,7 @@ define([
 		return {
 			onConnect: onConnect,
 			onDisconnect: onDisconnect,
+			gameRooms: gameRooms,
 			createGame: createGame,
 			joinGameRoom: joinGameRoom,
 			leaveGameRoom: leaveGameRoom,

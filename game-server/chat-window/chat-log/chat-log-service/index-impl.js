@@ -42,15 +42,12 @@ define([
     var updateChatLog = function() {
       var chatLogStore = storeService.store.getState().chatLog;
       for(var i in gameUser.rooms) {
-        if(chatLog[gameUser.rooms[i]] === void 0) {
           chatLog[gameUser.rooms[i]] = [];
-        }
       }
-      for(var k in chatLogStore) {
-        chatLogStore[k].isUser = chatLogStore[k].socketid === socketid;
-        chatLogStore[k].avatar = gameUser.avatar;
-        chatLogStore[k].name = gameUser.name;
-        chatLog[chatLogStore[k].room].push(chatLogStore[k]);
+      for(var i in chatLogStore) {
+        var chatString = JSON.parse(JSON.stringify(chatLogStore[i]));
+        chatString.isUser = chatString.socketid === socketid;
+        chatLog[chatLogStore[i].room].push(chatString);
       }
     };
     var checkAvatar = function(text) {
@@ -81,6 +78,8 @@ define([
         }
       }
       var obj = {
+        avatar: gameUser.avatar,
+        name: gameUser.name,
         room: 'lobby',
         text: text,
         type: type,
