@@ -37,9 +37,7 @@ module.exports = {
 	},
 	onMessageSent: function(message) {
 		var user = this.gameUsers.getUserInfo(message.socketid);
-		for(var i in user) {
-			message[i] = user[i];
-		}
+
 		this.io.sockets.in(message.room).emit('ChatServer:RecieveMessage', message);
 	},
 };

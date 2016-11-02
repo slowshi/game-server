@@ -1,7 +1,9 @@
 define([
 	'app',
 	'./chat-window-service/index.js',
-	'./chat-bubble/index.js',
+	'./chat-users/chat-user-service/index.js',
+	'./chat-log/chat-log-service/index.js',
+	'./chat-log/index.js',
 	'./chat-users/index.js'],
 function(app) {
 	app.registerDirective('chatWindow', function() {
@@ -28,7 +30,5 @@ function(app) {
 		cssInjector.add('/game-server/chat-window/index.css');
 		var _this = this;
 		_this.ChatWindowService = ChatWindowService;
-		_this.GameUser = GameUser;
-		_this.chatOpen = true;
 	}]);
 });

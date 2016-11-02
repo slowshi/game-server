@@ -20,6 +20,7 @@
 }
 .top-bar .title {
   padding: 0px 0px 0px 10px;
+  text-transform: capitalize;
 }
 .top-bar .right {
   float: right;

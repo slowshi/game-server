@@ -1,7 +1,8 @@
 <div>
 	<div class="chat-users">
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="user in ctrl.ChatWindowService.getUsersInRoom('lobby')">
+			{{ctrl.chatUserService.roomUsers}}
+			<li class="list-group-item" ng-repeat="user in ctrl.ChatUserService.roomUsers[ctrl.roomid]">
 				<div class="chat-user-avatar champs {{user.avatar}}"></div>
 				<div class="chat-user-text">{{user.name}}</div>
 			</li>

@@ -1,18 +1,12 @@
 define([], function() {
-    var initialState = {
-        chatLog: [],
-        userList: [],
-    };
+    var initialState = [];
     var ChatWindowReducer = function(state, action) {
         if(typeof state === 'undefined') {
             state = initialState;
         }
         switch (action.type) {
             case 'recieveMessage':
-                state.chatLog.push(action.message);
-            break;
-            case 'updateUserList':
-                state.userList = action.userList;
+                state.push(action.message);
             break;
         }
         return state;

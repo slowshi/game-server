@@ -8,16 +8,19 @@ define(['app'], function(app) {
 		replace: true,
 		controller: 'ChatUsersController',
 		controllerAs: 'ctrl',
-		bindToController: true,
+		bindToController: {
+			roomid: '@?',
+		},
 		link: function(scope, elem, attrs) {},
 	};
 	});
 	app.registerController('ChatUsersController',
-	['$scope', '$window', '$element', 'cssInjector', 'ChatWindowService',
-	function($scope, $window, $element, cssInjector, ChatWindowService) {
+	['$scope', '$window', '$element', 'cssInjector', 'ChatUserService',
+	function($scope, $window, $element, cssInjector, ChatUserService) {
 		cssInjector.add('/game-server/chat-window/chat-users/index.css');
 		var _this = this;
-		_this.ChatWindowService = ChatWindowService;
+		_this.ChatUserService = ChatUserService;
+		_this.roomid = _this.roomid || 'lobby';
 		var resizeChat = function() {
 			var newHeight = $window.innerHeight - 88;
 			var discussion = $element.children()[0];
