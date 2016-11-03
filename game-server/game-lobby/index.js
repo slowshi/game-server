@@ -20,6 +20,7 @@ define(['app'], function(app) {
 	['$scope', 'cssInjector', 'GameRoomService',
 	function($scope, cssInjector, GameRoomService) {
 		cssInjector.add('/game-server/game-lobby/index.css');
-		this.GameRoomService = GameRoomService;
+		var _this = this;
+		_this.GameRoomService = GameRoomService;
 	}]);
 });

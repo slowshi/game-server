@@ -5,7 +5,7 @@ define([], function() {
         socketid: '',
         avatar: '',
         validSocketIds: [],
-        gameid: null,
+        gameid: 0,
         rooms: [],
     };
     var ChatWindowReducer = function(state, action) {

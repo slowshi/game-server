@@ -5,6 +5,7 @@ require.config({
         'angular-couch-potato' : 'angular/angular-couch-potato',
         'angular-css-injector' : 'angular/angular-css-injector.min',
         'redux'                : 'redux/redux.min',
+        'lodash'               : 'lodash/lodash.min',
         'states'               : 'states',
         'app'                  : 'app',
         'app-init'             : 'app-init',

@@ -1,8 +1,8 @@
 module.exports = {
-	io:null,
+	io: null,
 	gameRooms:{},
 	gameid: new Date().getTime(),
-	gamesList:require('./game_list.js'),
+	gamesList: require('./game_list.js'),
 	gameUsers: require('./game_users.js'),
 	registerIo:function(io, socket) {
 		this.io = io;
@@ -21,29 +21,27 @@ module.exports = {
 		var socketid = data.socketid;
 		var game = data.game;
 		var room = {
-			players:{},
+			players:[],
 			owner: socketid,
 			game: game,
 			gameid: this.gameid
 		};
 		var user = this.gameUsers.getServerUserInfo(socketid);
 		user.gameid = this.gameid;
-		room.players[socketid] = this.gameUsers.getUserInfo(socketid);
+		room.players.push(socketid);
 		this.gameRooms[user.gameid] = room;
 		this.io.sockets.sockets[data.socketid].emit('GameServer:GameRoomCreated',this.gameid);
 		this.io.sockets.emit('GameServer:UpdateGameRooms',this.gameRooms);
 		this.gameid++;
 	},
-	onJoinGameRoom:function(data) {
+	onJoinGameRoom: function(data) {
 		var room = this.gameRooms[data.gameid];
-		var user = this.gameUsers.getUserInfo(data.socketid);
-		room.players[data.socketid] = user;
-		this.io.sockets.emit('GameServer:UpdateGameRooms',this.gameRooms);
+		room.players.push(data.socketid);
+		this.io.sockets.emit('GameServer:UpdateGameRooms', this.gameRooms);
 	},
-	onStartGame:function(gameid) {
-		console.log("START",gameid);
+	onStartGame: function(gameid) {
 		var room = this.gameRooms[gameid];
-		var socketids = Object.keys(room.players);
+		var socketids = room.players;
 		var sockets = socketids.map(function(socketid) {
 			return this.io.sockets.sockets[socketid];
 		}.bind(this));
@@ -51,7 +49,7 @@ module.exports = {
 		var gameObj = new Game(sockets);
 		gameObj.socketsEmit('GameServer:GameLoaded');
 	},
-	onLeaveGameRoom:function(data) {
+	onLeaveGameRoom: function(data) {
 		var room = this.gameRooms[data.gameid];
 		if(room !== void 0) {
 			delete room.players[data.socketid];
@@ -64,7 +62,7 @@ module.exports = {
 			this.io.sockets.emit('GameServer:UpdateGameRooms',this.gameRooms);
 		}
 	},
-	onDisconnect:function() {
+	onDisconnect: function() {
 		var room = module.exports.getGameBySocketid(this.id);
 		if(room !== void 0) {
 			delete room.players[this.id];
@@ -78,7 +76,7 @@ module.exports = {
 		}
 		console.log("DISCONNECTIONS",this.id);
 	},
-	getGameBySocketid:function(socketid) {
+	getGameBySocketid: function(socketid) {
 		var game;
 		for(var i in this.gameRooms) {
 			var room = this.gameRooms[i];

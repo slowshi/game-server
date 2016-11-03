@@ -1,10 +1,11 @@
 <div class="game-room">
 	<button class="btn btn-default" ng-click="ctrl.leaveGameRoom()">Leave Game</button>
+	{{ctrl.GameRoomService.userGame}}
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="player in ctrl.GameRoomService.getUsersGame().players">
+		<li class="list-group-item" ng-repeat="player in ctrl.GameRoomService.userGame.players">
 			<div class="game-room-user-avatar champs {{player.avatar}}"></div>
 			<div class="game-room-user-text">{{player.name}}</div>
 		</li>
 	</ul>
-	<button class="btn btn-default" ng-show="ctrl.GameRoomService.gameRoomReady()" ng-click="ctrl.startGame()">Start Game</button>
+	<button class="btn btn-default" ng-click="ctrl.startGame()">Start Game</button>
 </div>

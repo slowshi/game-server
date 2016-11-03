@@ -19,7 +19,6 @@ define(['app',
 			cssInjector.add('/css/champs.css');
 			var _this = this;
 			var rootScopeApply = function() {
-				console.log('test',storeService.store.getState());
 				var phase = $scope.$$phase;
 				if( phase != '$apply' && phase != '$digest') {
 					$scope.$digest();

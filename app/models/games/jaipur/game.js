@@ -2,19 +2,20 @@ var Deck = new require('../components/card_deck.js');
 var Cards = new require('./jaipur_cards.js');
 var Tokens = new require('./jaipur_tokens.js');
 function Jaipur(sockets) {
+	console.log(sockets,"SOCE");
 	this.sockets = sockets;
 	this.players = [];
 	this.usersReady = 0;
 	this.users = ['market','deck','discard'];
 	this.registerUsers();
 	this.deck = new Deck(new Cards());
-	console.log(this.deck);
 	this.tokens = new Deck(new Tokens());
 	return this;
 }
 Jaipur.prototype = {
 	registerUsers:function() {
 		var getSocketIds = function(socket) {
+			console.log(socket);
 			return socket.id;
 		}
 		this.players = this.sockets.map(getSocketIds);
