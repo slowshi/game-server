@@ -1,6 +1,7 @@
 define(['app',
 		'socket-io',
 		'event-emitter',
+		'mock-view',
 		'./game-view/index.js',
 		'./chat-window/index.js',
 		'./game-room-service/index.js',

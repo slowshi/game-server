@@ -11,6 +11,8 @@ require.config({
         'app-init'             : 'app-init',
         'socket-io'            : '/socket.io/socket.io',
         'event-emitter'        : 'event-emitter/index',
+        'text'                 : 'requirejs-text/2.0.14/text',
+        'mock-view'            : 'mock-view/index',
     },
     shim:{
         'angular': {

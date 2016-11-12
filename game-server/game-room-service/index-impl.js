@@ -73,7 +73,7 @@ define([
 				socketid: gameUserStore.socketid,
 				game: name,
 			};
-			$state.transitionTo('gameroom');
+			$state.transitionTo(name);
 			gameUserStore.socket.emit('GameServer:MakeGameRoom', gameInfo);
 		};
 		var joinGameRoom = function joinGameRoom(gameid) {
