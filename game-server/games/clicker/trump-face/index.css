@@ -1,0 +1,11 @@
+.trump-face{
+	position:relative;
+	margin: 0 auto;
+	width:400px;
+	height:400px;
+	background-size: 100% 100%;
+	background-image: url('/game-server/games/clicker/images/trump1.png');
+}
+.trump-face-owe{
+	background-image: url('/game-server/games/clicker/images/owe.jpeg');
+}

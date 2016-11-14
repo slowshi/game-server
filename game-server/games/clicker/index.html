@@ -1,4 +1,5 @@
 <div class="game-window">
-    <button ng-click="ctrl.clickerGameService.addClicks()">click me</button>
+    <trump-face></trump-face>
+    <hand-cursor cursor-pos="ctrl.clickerGameService.clickData.cursorPos"></hand-cursor>
     {{ctrl.clickerGameService.clickData.clicks}}
 </div>

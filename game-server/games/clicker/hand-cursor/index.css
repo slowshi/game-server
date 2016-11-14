@@ -1,0 +1,9 @@
+.hand-cursor{
+	width:100px;
+	height:100px;
+	position:absolute;
+	background-color:orange;
+}
+.back-hand{
+	background-color:blue;
+}
