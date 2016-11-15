@@ -1,24 +1,22 @@
 define([], function() {
 	var HandCursorService = function(GameUser, $timeout) {
 		var handData = {
-			element:null,
+			element: null,
 			handSide: false,
 		};
 
-		var resetFace = function resetFace(){
-			handData.element.removeClass('back-hand');
-		};
-		var hitFace = function hitFace(element) {
-			if(!handData.element) {
-				handData.element = element;
-			}
-			console.log(element);
-			element.addClass('back-hand');
+		var slapAction = function slapAction() {
 			handData.handSide = !handData.handSide;
+			if(handData.handSide) {
+				console.log("ADD BACKHAND");
+				handData.element.addClass('back-hand');
+			}else {
+				handData.element.removeClass('back-hand');
+			}
 		};
 		return {
 			handData: handData,
-			hitFace: hitFace,
+			slapAction: slapAction,
 		};
 	};
 	return HandCursorService;

@@ -3,5 +3,5 @@ define([
 './index-impl.js',
 ], function(app, TrumpFaceService) {
 	app.registerService('trumpFaceService',
-	['GameUser','$timeout', TrumpFaceService]);
+	['GameUser', '$timeout', 'storeService', '$interval', TrumpFaceService]);
 });

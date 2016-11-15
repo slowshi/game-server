@@ -2,8 +2,12 @@
 	width:100px;
 	height:100px;
 	position:absolute;
-	background-color:orange;
+	pointer-events: none;
+	background-size:200% 100%;
+	transform: rotate(-45deg);
+	background-image: url('/game-server/games/clicker/images/hands.jpg');
 }
 .back-hand{
-	background-color:blue;
+	transform: rotate(45deg);
+	background-position-x: 100%;
 }

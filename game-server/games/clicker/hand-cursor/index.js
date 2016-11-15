@@ -20,9 +20,11 @@ define(['app',
 		};
 	});
 	app.registerController('HandCursorController',
-	['$scope', 'cssInjector', 'clickerGameService', '$element',
-	function($scope, cssInjector, clickerGameService, $element) {
+	['$scope', 'cssInjector', 'handCursorService', '$element',
+	function($scope, cssInjector, handCursorService, $element) {
 		cssInjector.add('/game-server/games/clicker/hand-cursor/index.css');
 		var _this = this;
+		_this.handCursorService = handCursorService;
+		_this.handCursorService.handData.element = $element;
 	}]);
 });

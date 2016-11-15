@@ -12,7 +12,7 @@ function(app) {
 		var _this = this;
 		_this.clickerGameService = clickerGameService;
 
-		$element.on('mousemove',function(event){
+		$element.on('mousemove', function(event) {
 			_this.clickerGameService.updateCursorPos(event);
 			$scope.$apply();
 		});

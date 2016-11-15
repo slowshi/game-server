@@ -34,7 +34,6 @@ define([
 			for(var j in list) {
 				gameList[j] = list[j];
 			}
-			console.log(storeService.store.getState())
 		};
 		storeService.store.subscribe(onGameServerStoreUpdate);
 		var onConnect = function onConnect() {
