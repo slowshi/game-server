@@ -5,6 +5,8 @@ define(['preloadjs', 'soundjs'], function(preloadjs, soundjs) {
 		.registerSound('/game-server/games/clicker/images/wrong.mp3', 'wrong');
 		createjs.Sound
 		.registerSound('/game-server/games/clicker/images/sitdown.mp3', 'sitdown');
+		createjs.Sound
+		.registerSound('/game-server/games/clicker/images/slap.mp3', 'slap');
 		var faceData = {
 			element: null,
 			faceSide: false,
@@ -33,6 +35,7 @@ define(['preloadjs', 'soundjs'], function(preloadjs, soundjs) {
 			if(!faceData.element) {
 				faceData.element = element;
 			}
+			createjs.Sound.play('slap');
 			element.addClass('trump-face-owe');
 			$timeout(resetFace, 200);
 			faceData.responseCount = 0;
